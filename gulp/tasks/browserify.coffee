@@ -13,9 +13,11 @@ handleErrors = require '../util/handleErrors'
 source       = require 'vinyl-source-stream'
 
 gulp.task 'browserify', ->
-  bundleMethod = if global.isWatching then watchify else browserify
-
-  bundler = bundleMethod
+  bundler = browserify
+    # Required watchify args
+    cache: {}
+    packageCache: {}
+    fullPaths: true
     # Specify the entry point of your app
     entries: ['./src/game/main.coffee']
     # Add file extentions to make optional in your requires
@@ -41,7 +43,9 @@ gulp.task 'browserify', ->
       .on 'end', bundleLogger.end
 
   # Rebundle with watchify on changes.
-  bundler.on 'update', bundle if global.isWatching
+  if global.isWatching
+    bundler = watchify bundler
+    bundler.on 'update', bundle 
 
   bundle()
 
