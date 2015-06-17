@@ -1,4 +1,5 @@
 class Menu
+  DJ = require '../dj'
 
   @titleTxt = null
   @startTxt = null
@@ -17,6 +18,9 @@ class Menu
     @startTxt.x = @game.width / 2 - @startTxt.textWidth / 2
 
     @input.onDown.add @onDown, this
+
+    dj = new DJ
+    dj.preloadMusic @game, 'ghostsI'
 
   update: ->
 
