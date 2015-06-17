@@ -1,9 +1,9 @@
 {
-  "name": "mars",
-  "description": "",
-  "readme": "",
+  "name": "MarsRover",
+  "description": "An action game where you poison zombie nazis on Mars.",
+  "readme": "README.md",
   "repository": "",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
     "bower": "^1.4.1",
     "browser-sync": "*",
@@ -16,7 +16,7 @@
     "gulp-changed": "*",
     "gulp-compass": "*",
     "gulp-imagemin": "*",
-    "gulp-install": "^0.4.0",
+    "gulp-install": "*",
     "gulp-notify": "*",
     "gulp-open": "*",
     "gulp-util": "*",
@@ -37,21 +37,6 @@
     "phaser": "Phaser"
   },
   "devDependencies": {
-    "browser-sync": "*",
-    "browserify-shim": "*",
-    "browserify": "*",
-    "coffeeify": "*",
-    "connect": "*",
-    "gulp-changed": "*",
-    "gulp-compass": "*",
-    "gulp-imagemin": "*",
-    "gulp-notify": "*",
-    "gulp-open": "*",
-    "gulp": "*",
-    "vinyl-source-stream": "*",
-    "watchify": "*",
-    "gulp-util": "*",
-    "pretty-hrtime": "*"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
