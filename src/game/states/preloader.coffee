@@ -10,7 +10,7 @@ class Preloader
     @load.setPreloadSprite @asset
     @load.image 'player', 'assets/images/player.png'
     @load.bitmapFont 'minecraftia', 'assets/fonts/minecraftia.png', 'assets/fonts/minecraftia.xml'
-
+    @load.image 'bg', 'assets/images/mars-bg.jpg'
   create: ->
     @asset.cropEnabled = false
 

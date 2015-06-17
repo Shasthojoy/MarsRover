@@ -26,7 +26,7 @@ class Menu
 
   onDown: ->
     @game.state.start 'game'
-    dj = new DJ
-    dj.next()
+    #dj = new DJ
+    #dj.next()
 
 module.exports = Menu

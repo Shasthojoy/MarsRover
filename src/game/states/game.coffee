@@ -1,31 +1,36 @@
 class Game
 
   @player = null
+  @cursors = null
 
   create: ->
+    @game.world.setBounds 0, 0, 1041, 642
     x = @game.width / 2
     y = @game.height / 2
+    @add.sprite 0, 0, 'bg'
     @player = @add.sprite x, y, 'player'
-    @player.anchor.setTo 0.5, 0.5
+    @game.camera.follow @player
+    #@player.anchor.setTo 0.5, 0.5
+    @cursors = @game.input.keyboard.createCursorKeys()
     @input.onDown.add @onInputDown, this
 
   update: ->
-    x = @input.position.x
-    y = @input.position.y
-    cx = @world.centerX
-    cy = @world.centerY
+    if @cursors.left.isDown
+      @player.x -= 4;
+    else if @cursors.right.isDown
+      @player.x += 4;
 
-    angle = Math.atan2(y - cy, x - cx) * (180 / Math.PI)
-    @player.angle = angle
-
-    dx = x - cx
-    dy = y - cy
-    scale = Math.sqrt(dx * dx + dy * dy) / 100
-
-    @player.scale.x = scale * 0.6
-    @player.scale.y = scale * 0.6
+    if @cursors.up.isDown
+      @player.y -= 4;
+    else if @cursors.down.isDown
+      @player.y += 4;
+    @game.world.wrap(@player, 0, true);
 
   onInputDown: ->
-    @game.state.start 'menu'
+    #@game.state.start 'menu'
+
+  render: ->
+    @game.debug.cameraInfo @game.camera, 500, 35
+    @game.debug.spriteCoords @player, 32, 32
 
 module.exports = Game
