@@ -20,11 +20,13 @@ class Menu
     @input.onDown.add @onDown, this
 
     dj = new DJ
-    dj.preloadMusic @game, 'ghostsI'
+    dj.start @game
 
   update: ->
 
   onDown: ->
     @game.state.start 'game'
+    dj = new DJ
+    dj.next()
 
 module.exports = Menu
