@@ -20,7 +20,9 @@
     "gulp-open": "*",
     "gulp-util": "*",
     "pretty-hrtime": "*",
-    "vinyl-source-stream": "*"
+    "vinyl-source-stream": "*",
+    "watchify": "*",
+    "browser-sync": "*"
   },
   "browser": {
     "phaser": "./src/bower_components/phaser-official/build/phaser.min.js"
@@ -35,8 +37,7 @@
     "phaser": "Phaser"
   },
   "devDependencies": {
-    "watchify": "*",
-    "browser-sync": "*"
+
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
