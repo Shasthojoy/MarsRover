@@ -5,24 +5,22 @@
   "repository": "",
   "version": "0.0.1",
   "dependencies": {
-    "bower": "^1.4.1",
-    "browser-sync": "*",
+    "bower": "*",
     "browserify": "*",
     "browserify-shim": "*",
-    "coffee-script": "^1.9.3",
+    "coffee-script": "*",
     "coffeeify": "*",
     "connect": "*",
     "gulp": "*",
     "gulp-changed": "*",
-    "gulp-compass": "*",
+    "gulp-less": "*",
     "gulp-imagemin": "*",
     "gulp-install": "*",
     "gulp-notify": "*",
     "gulp-open": "*",
     "gulp-util": "*",
     "pretty-hrtime": "*",
-    "vinyl-source-stream": "*",
-    "watchify": "*"
+    "vinyl-source-stream": "*"
   },
   "browser": {
     "phaser": "./src/bower_components/phaser-official/build/phaser.min.js"
@@ -37,6 +35,8 @@
     "phaser": "Phaser"
   },
   "devDependencies": {
+    "watchify": "*",
+    "browser-sync": "*"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",

@@ -2,7 +2,7 @@ gulp = require 'gulp'
 
 gulp.task 'build', [
   'browserify'
-  'compass'
+  'less'
   'images'
   'copy'
 ]
