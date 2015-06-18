@@ -78,6 +78,7 @@ IF DEFINED KUDU_SELECT_NODE_VERSION_CMD (
   SET NPM_CMD=npm
   SET NODE_EXE=node
 )
+SET GULP_CMD=gulp
 
 goto :EOF
 
@@ -106,14 +107,12 @@ IF EXIST "%DEPLOYMENT_TARGET%\package.json" (
 )
 
 :: 4. Run gulp
-# The path doesn't seem to get set OK.  Use this hack to run gulp.
-GULP="node_modules/gulp/bin/gulp.js"
-
-echo "Running gulp..."
-"$GULP" production
-exitWithMessageOnError "Could not run 'gulp'.  Did 'npm install' run OK?"
-echo "Finished gulp."
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+IF EXIST "%DEPLOYMENT_TARGET%\gulpfile.js" (
+  pushd "%DEPLOYMENT_TARGET%"
+  call :ExecuteCmd !GULP_CMD! production
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
