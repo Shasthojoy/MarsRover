@@ -2,8 +2,12 @@
   "name": "MarsRover",
   "description": "An action game where you poison zombie nazis on Mars.",
   "readme": "README.md",
-  "repository": "",
+  "repository": "https://github.com/kennedyr/MarsRover",
   "version": "0.0.1",
+  "engines": {
+    "node": ">= 0.10.x",
+    "npm": ">= 2.1.z"
+  },
   "dependencies": {
     "bower": "*",
     "browserify": "*",
