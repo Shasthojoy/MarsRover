@@ -4,6 +4,5 @@ gulp.task 'production', [
   'browserify'
   'install'
   'less'
-  'images'
   'copy'
 ]
