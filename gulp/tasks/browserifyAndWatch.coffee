@@ -2,16 +2,19 @@
 # ---------------
 # Bundle javascripty things with browserify!
 #
+# If the watch task is running, this uses watchify instead
+# of browserify for faster bundling using caching.
 
 browserify   = require 'browserify'
+watchify     = require 'watchify'
 bundleLogger = require '../util/bundleLogger'
 gulp         = require 'gulp'
 handleErrors = require '../util/handleErrors'
 source       = require 'vinyl-source-stream'
 
-gulp.task 'browserify', ->
+gulp.task 'browserifyAndWatch', ->
   bundler = browserify
-    # Required browserify args
+    # Required watchify args
     cache: {}
     packageCache: {}
     fullPaths: true
@@ -38,5 +41,10 @@ gulp.task 'browserify', ->
       .pipe gulp.dest './build'
       # Log when bundling completes!
       .on 'end', bundleLogger.end
+
+  # Rebundle with watchify on changes.
+  if global.isWatching
+    bundler = watchify bundler
+    bundler.on 'update', bundle
 
   bundle()
