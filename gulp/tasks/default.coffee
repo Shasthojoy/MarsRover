@@ -1,3 +1,7 @@
 gulp = require 'gulp'
+{argv} = require 'yargs'
 
-gulp.task 'default', ['watch']
+if argv.production
+  gulp.task 'default', ['production']
+else
+  gulp.task 'default', ['watch']
