@@ -24,6 +24,7 @@
     "gulp-notify": "2.2.x",
     "gulp-open": "0.3.x",
     "gulp-util": "3.0.x",
+    "mongoose": "4.0.x",
     "pretty-hrtime": "1.0.x",
     "vinyl-source-stream": "1.1.x",
     "yargs": "3.11.x"
@@ -46,7 +47,7 @@
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
-    "start": "node ./node_modules/gulp/bin/gulp.js",
+    "start": "node ./app/server.js",
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "production": "node ./node_modules/gulp/bin/gulp.js --production"
   }
