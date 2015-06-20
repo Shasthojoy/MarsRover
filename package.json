@@ -8,13 +8,16 @@
     "node": "0.12.x",
     "npm": "2.10.x"
   },
+  "main": "server.js",
   "dependencies": {
+    "body-parser": "1.13.x",
     "bower": "1.4.x",
     "browserify": "10.2.x",
     "browserify-shim": "3.8.x",
     "coffee-script": "1.9.x",
     "coffeeify": "1.1.x",
     "connect": "3.3.x",
+    "express": "4.12.x",
     "gulp": "3.9.x",
     "gulp-install": "0.4.x",
     "gulp-less": "3.0.x",
