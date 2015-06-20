@@ -115,7 +115,7 @@ fi
 
 # 3. Gulp build
   cd "$DEPLOYMENT_SOURCE"
-  eval $NPM_CMD run-script production
+  eval $NODE_EXE ./node_modules/gulp/bin/gulp.js --production
   exitWithMessageOnError "gulp failed"
   cd - > /dev/null
 
