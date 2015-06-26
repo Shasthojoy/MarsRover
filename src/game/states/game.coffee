@@ -1,5 +1,5 @@
 class Game
-
+  require 'socket.io'
   @player = null
   @cursors = null
 
