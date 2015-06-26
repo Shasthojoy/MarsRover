@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/kennedyr/MarsRover.png?label=ready&title=Ready)](https://waffle.io/kennedyr/MarsRover)
 # MarsRover
 An action game where you poison zombie nazis on Mars.
 A experimental game built with Phaser
