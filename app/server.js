@@ -6,9 +6,20 @@
 // call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var bodyParser = require('body-parser');
 var io = require('socket.io').listen(server);
+var device  = require('express-device');
+
+// I need to access everything in '/public' directly
+app.use(express.static(__dirname + 'content'));
+app.use(express.static(__dirname + 'scripts'));
+
+//set the view engine
+app.set('view engine', 'ejs');
+app.set('views', __dirname +'/views');
+
+app.use(device.capture());
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -18,6 +29,21 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 8080;        // set our port
 
 // Socket.IO stuff
+
+io.sockets.on('connection', function (socket) {
+
+	io.sockets.emit('blast', {msg:"someone connected"});
+
+	socket.on('blast', function(data, fn){
+		console.log(data);
+		io.sockets.emit('blast', {msg:data.msg});
+		fn();
+	});
+
+});
+
+
+
 
 
 var router = express.Router();
@@ -31,7 +57,7 @@ router.get('/', function(req, res) {
 // =============================================================================
 var apiRouter = express.Router();              // get an instance of the express Router
 
-mongoose = require('mongoose');
+/*mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost')
 
 
@@ -113,10 +139,10 @@ apiRouter.route('/bears/:bear_id')
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
-app.use('/api', apiRouter);
+app.use('/api', apiRouter);*/
 app.use('/', router);
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+server.listen(port);
 console.log('Magic happens on port ' + port);

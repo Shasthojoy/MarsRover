@@ -16,7 +16,7 @@ gulp.task 'browserify', ->
     packageCache: {}
     fullPaths: true
     # Specify the entry point of your app
-    entries: ['./src/game/main.coffee']
+    entries: ['./app/scripts/game/main.coffee']
     # Add file extentions to make optional in your requires
     extensions: ['.coffee']
     # Enable source maps!
@@ -35,7 +35,7 @@ gulp.task 'browserify', ->
       # desired output filename here.
       .pipe source 'app.js'
       # Specify the output destination
-      .pipe gulp.dest './build'
+      .pipe gulp.dest './app/scripts'
       # Log when bundling completes!
       .on 'end', bundleLogger.end
 

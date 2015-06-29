@@ -17,8 +17,11 @@
     "coffee-script": "1.9.x",
     "coffeeify": "1.1.x",
     "connect": "3.3.x",
+    "ejs": "^2.3.2",
     "express": "4.12.x",
+    "express-device": "^0.3.11",
     "gulp": "3.9.x",
+    "gulp-exec": "^2.1.1",
     "gulp-install": "0.4.x",
     "gulp-less": "3.0.x",
     "gulp-notify": "2.2.x",
@@ -31,8 +34,8 @@
     "yargs": "3.11.x"
   },
   "browser": {
-    "phaser": "./src/bower_components/phaser-official/build/phaser.min.js",
-    "socket.io": "./src/bower_components/socket.io-client/socket.io.js"
+    "phaser": "./app/scripts/bower_components/phaser-official/build/phaser.min.js",
+    "socket.io": "./app/scripts/bower_components/socket.io-client/socket.io.js"
   },
   "browserify": {
     "transform": [
