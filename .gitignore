@@ -5,3 +5,7 @@ build
 bower_components/
 node_modules/
 Desktop.ini
+
+app/content/styles/main.css
+
+app/scripts/app.js
