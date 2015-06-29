@@ -8,7 +8,7 @@ class Menu
     x = @game.width / 2
     y = @game.height / 2
 
-    @titleTxt = @add.bitmapText(x, y, 'minecraftia', 'Example Game')
+    @titleTxt = @add.bitmapText(x, y, 'minecraftia', 'Mars Rover: Nazi-Zombie Style')
     @titleTxt.align = 'center'
     @titleTxt.x = @game.width / 2 - @titleTxt.textWidth / 2
 
