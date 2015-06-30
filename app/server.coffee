@@ -3,8 +3,21 @@
 # BASE SETUP
 # =============================================================================
 
-# set our port
-port = process.env.PORT || 8080
+nconf = require('nconf');
+
+nconf.argv()
+	.env()
+	.file file: 'config.json'
+
+###nconf.defaults {
+  'http':
+    'port': 8080,
+	'db':
+    'dbTimeout': 500,
+    'dbURL': 'mongodb://localhost'
+}###
+
+port = nconf.get 'http:port'
 
 # call the packages we need
 express = require 'express'
@@ -15,12 +28,7 @@ bodyParser = require 'body-parser'
 io = require 'socket.io'
 	.listen(server)
 device = require 'express-device'
-mongoose = require 'mongoose'
 
-try
-	mongoose.connect 'mongodb://localhost'
-catch ex
-	console.log ex
 
 #set the view engine
 app.set 'view engine', 'ejs'
@@ -31,6 +39,11 @@ app.use express.static __dirname + 'content'
 	.use device.capture()
 	.use bodyParser.urlencoded { extended: true }
 	.use bodyParser.json()
+
+# Mongo SETUP
+# =============================================================================
+Database = require './database'
+db = new Database(nconf.get('db'))
 
 # Socket.IO SETUP
 # =============================================================================
