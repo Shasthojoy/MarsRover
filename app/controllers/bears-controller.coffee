@@ -1,4 +1,6 @@
-class BearsController
+BaseController = require './base-controller'
+
+class BearsController extends BaseController
   express = require 'express'
   Bear = require '../models/bear'
 
