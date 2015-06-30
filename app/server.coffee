@@ -3,6 +3,9 @@
 # BASE SETUP
 # =============================================================================
 
+# set our port
+port = process.env.PORT || 8080
+
 # call the packages we need
 express = require 'express'
 app = express()
@@ -12,25 +15,25 @@ bodyParser = require 'body-parser'
 io = require 'socket.io'
 	.listen(server)
 device = require 'express-device'
+mongoose = require 'mongoose'
 
-app.use express.static __dirname + 'content'
-app.use express.static __dirname + 'scripts'
+try
+	mongoose.connect 'mongodb://localhost'
+catch ex
+	console.log ex
 
 #set the view engine
 app.set 'view engine', 'ejs'
-app.set 'views', __dirname + '/views'
+	.set 'views', __dirname + '/views'
 
-app.use device.capture()
+app.use express.static __dirname + 'content'
+	.use express.static __dirname + 'scripts'
+	.use device.capture()
+	.use bodyParser.urlencoded { extended: true }
+	.use bodyParser.json()
 
-# configure app to use bodyParser()
-# this will let us get the data from a POST
-app.use bodyParser.urlencoded { extended: true }
-app.use bodyParser.json()
-
-# set our port
-port = process.env.PORT || 8080
-
-# Socket.IO stuff
+# Socket.IO SETUP
+# =============================================================================
 io.sockets.on 'connection', (socket) ->
 	io.sockets.emit 'blast', { msg:"someone connected" }
 	socket.on 'blast', (data, fn) ->
@@ -38,7 +41,8 @@ io.sockets.on 'connection', (socket) ->
 		io.sockets.emit 'blast', { msg:data.msg }
 		fn()
 
-
+# Register Routes
+# =============================================================================
 router = express.Router()
 router.get '/', (req, res) ->
 	res.render 'index', {}
@@ -47,18 +51,10 @@ apiRouter = express.Router()
 apiRouter.get '/', (req, res) ->
 	res.json { message: 'hooray! welcome to our api!' }
 
-blahRouter = express.Router()
-blahRouter.get '/blah', (req, res) ->
-	res.json { message: 'blah! welcome to our api!' }
-
-
-# REGISTER OUR ROUTES -------------------------------
-# all of our routes will be prefixed with /api
 BearsController = require './controllers/bears-controller'
 app.use '/api', new BearsController()
-app.use '/api', apiRouter
-app.use '/api', blahRouter
-app.use '/', router
+	.use '/api', apiRouter
+	.use '/', router
 
 # START THE SERVER
 # =============================================================================

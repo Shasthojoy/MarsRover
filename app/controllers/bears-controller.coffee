@@ -4,11 +4,6 @@ class BearsController extends BaseController
   express = require 'express'
   Bear = require '../models/bear'
 
-  #try
-  #	mongoose.connect 'mongodb://localhost'
-  #catch ex
-  #	console.log ex`
-
   constructor: ->
     bearRouter = express.Router()
 
@@ -21,7 +16,7 @@ class BearsController extends BaseController
           	res.send err
           res.json { message: 'Bear created!' }
       .get (req, res) ->
-    		Bear.find (err, bears) ->
+        Bear.find (err, bears) ->
         	if err
             res.send err
           res.json bears
