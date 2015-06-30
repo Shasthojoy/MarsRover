@@ -1,0 +1,49 @@
+class BearsController
+  express = require 'express'
+  Bear = require '../models/bear'
+
+  #try
+  #	mongoose.connect 'mongodb://localhost'
+  #catch ex
+  #	console.log ex`
+
+  constructor: ->
+    bearRouter = express.Router()
+
+    bearRouter.route '/bears/'
+      .post (req, res) ->
+        bear = new Bear()
+        bear.name = req.body.name
+        bear.save (err) ->
+        	if (err)
+          	res.send err
+          res.json { message: 'Bear created!' }
+      .get (req, res) ->
+    		Bear.find (err, bears) ->
+        	if err
+            res.send err
+          res.json bears
+
+    bearRouter.route '/bears/:bear_id'
+    	.get (req, res) ->
+    	  Bear.findById req.params.bear_id, (err, bear) ->
+    	    if err
+    	    	res.send err
+    	    res.json bear
+      .put (req, res) ->
+        Bear.findById req.params.bear_id, (err, bear) ->
+          if err
+            res.send err
+          bear.name = req.body.name
+          bear.save (err) ->
+            if err
+              res.send err
+    	    res.json { message: 'Bear updated!' }
+      .delete (req, res) ->
+      	Bear.remove { _id: req.params.bear_id }, (err, bear) ->
+          if err
+          	res.send err
+          res.json { message: 'Successfully deleted' }
+      return bearRouter;
+
+module.exports = BearsController

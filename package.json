@@ -52,7 +52,7 @@
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
-    "start": "node ./app/server.js",
+    "start": "node ./app.js",
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "production": "node ./node_modules/gulp/bin/gulp.js --production"
   }

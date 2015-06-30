@@ -5,7 +5,6 @@ build
 bower_components/
 node_modules/
 Desktop.ini
-
+npm-debug.log
 app/content/styles/main.css
-
 app/scripts/app.js
