@@ -34,8 +34,7 @@ device = require 'express-device'
 app.set 'view engine', 'ejs'
 	.set 'views', __dirname + '/views'
 
-app.use express.static __dirname + '/content'
-	.use express.static __dirname + '/scripts'
+app.use '/assets', express.static __dirname + 'content/assets'
 	.use device.capture()
 	.use bodyParser.urlencoded { extended: true }
 	.use bodyParser.json()
@@ -62,6 +61,11 @@ router.get '/socket', (req, res) ->
 
 router.get '/', (req, res) ->
 	res.sendFile __dirname + '/index.html'
+router.get '/app.js', (req, res) ->
+	res.sendFile __dirname + '/scripts/app.js'
+router.get '/main.css', (req, res) ->
+	res.sendFile __dirname + '/content/styles/main.css'
+
 
 apiRouter = express.Router()
 apiRouter.get '/', (req, res) ->

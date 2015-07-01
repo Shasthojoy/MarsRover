@@ -14,7 +14,7 @@ class Game
     #@player.anchor.setTo 0.5, 0.5
     @cursors = @game.input.keyboard.createCursorKeys()
     @input.onDown.add @onInputDown, this
-    @socket = io.connect 'http://127.0.0.1:3000/'
+    @socket = io.connect '/'
     @socket.on "blast", (data) ->
       console.log data.msg + " received;"
 

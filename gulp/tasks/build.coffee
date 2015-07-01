@@ -1,7 +1,6 @@
 gulp = require 'gulp'
 
 gulp.task 'build', [
-  #'browserifyAndWatch'
+  'browserify'
   'less'
-  'server'
 ]
