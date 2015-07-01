@@ -34,7 +34,7 @@ device = require 'express-device'
 app.set 'view engine', 'ejs'
 	.set 'views', __dirname + '/views'
 
-app.use '/assets', express.static __dirname + 'content/assets'
+app.use '/assets', express.static __dirname + '/content/assets'
 	.use device.capture()
 	.use bodyParser.urlencoded { extended: true }
 	.use bodyParser.json()
