@@ -3,6 +3,6 @@ nodemon = require 'gulp-nodemon'
 
 gulp.task 'nodemon', (cb) ->
 	nodemon
-		script: 'app.js',
+		script: 'app.coffee',
 		ext: 'js coffee'
 	.once 'start', cb

@@ -4,5 +4,5 @@ gulp = require 'gulp'
 gulp.task 'browserSync', ['build'], ->
   browserSync.init
     proxy: 'http://localhost:3000',
-    files: ['app/content/**', 'app/scripts/**']
+    files: ['public/**']
     browser: 'google chrome'
