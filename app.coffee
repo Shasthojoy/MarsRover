@@ -4,9 +4,14 @@ favicon = require 'serve-favicon'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
+nconf = require 'nconf'
+
+
+nconf.argv()
+	.env()
+	.file file: 'config.json'
 
 routes = require './routes/index'
-users = require './routes/users'
 
 app = express()
 
@@ -24,7 +29,6 @@ app.use require('less-middleware')(path.join __dirname, 'public')
 app.use express.static path.join __dirname, 'public'
 
 app.use '/', routes
-app.use '/users', users
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
@@ -53,8 +57,8 @@ app.use (err, req, res, next) ->
 
 # Mongo SETUP
 # =============================================================================
-Database = require './database'
-db = new Database(nconf.get('db'))
+#Database = require './database'
+#db = new Database(nconf.get('db'))
 
 
 module.exports = app

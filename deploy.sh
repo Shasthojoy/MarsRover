@@ -105,7 +105,13 @@ echo Handling node.js deployment.
 # 1. Select node version
 selectNodeVersion
 
-# 2. Install npm packages
+# 2. KuduSync
+  if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
+    "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
+    exitWithMessageOnError "Kudu Sync failed"
+  fi
+
+# 3. Install npm packages
 if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
   cd "$DEPLOYMENT_SOURCE"
   eval $NPM_CMD install --production
@@ -113,17 +119,13 @@ if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
   cd - > /dev/null
 fi
 
-# 3. Gulp build
+# 4. Gulp build
   cd "$DEPLOYMENT_SOURCE"
   eval $NODE_EXE ./node_modules/gulp/bin/gulp.js --production
   exitWithMessageOnError "gulp failed"
   cd - > /dev/null
 
-# 4. KuduSync
-  if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
-    "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE/build" -t "$DEPLOYMENT_TARGET" -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" -i ".git;.hg;.deployment;deploy.sh"
-    exitWithMessageOnError "Kudu Sync failed"
-  fi
+
 
 ##################################################################################################################################
 
