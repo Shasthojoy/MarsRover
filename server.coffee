@@ -3,11 +3,11 @@
 # BASE SETUP
 # =============================================================================
 
-nconf = require('nconf');
+#nconf = require('nconf');
 
-nconf.argv()
-	.env()
-	.file file: 'config.json'
+#nconf.argv()
+#	.env()
+#	.file file: 'config.json'
 
 ###nconf.defaults {
   'http':
@@ -17,66 +17,64 @@ nconf.argv()
     'dbURL': 'mongodb://localhost'
 }###
 
-port = nconf.get 'http:port'
+#port = nconf.get 'http:port'
 
 # call the packages we need
-express = require 'express'
-app = express()
-server = require 'http'
-	.createServer app
-bodyParser = require 'body-parser'
-io = require 'socket.io'
-	.listen(server)
-device = require 'express-device'
+#express = require 'express'
+#app = express()
+#server = require 'http'
+#	.createServer app
+#bodyParser = require 'body-parser'
+#io = require 'socket.io'
+#	.listen(server)
+#device = require 'express-device'
 
 
 #set the view engine
-app.set 'view engine', 'ejs'
-	.set 'views', __dirname + '/views'
+#app.set 'view engine', 'handlebars'
+#	.set 'views', __dirname + '/views'
 
-app.use '/assets', express.static __dirname + '/content/assets'
-	.use device.capture()
-	.use bodyParser.urlencoded { extended: true }
-	.use bodyParser.json()
+#app.use '/assets', express.static __dirname + '/content/assets'
+#	.use device.capture()
+#	.use bodyParser.urlencoded { extended: true }
+#	.use bodyParser.json()
 
 # Mongo SETUP
 # =============================================================================
-Database = require './database'
-db = new Database(nconf.get('db'))
+#Database = require './database'
+#db = new Database(nconf.get('db'))
 
 # Socket.IO SETUP
 # =============================================================================
-io.sockets.on 'connection', (socket) ->
-	io.sockets.emit 'blast', { msg:"someone connected" }
-	socket.on 'blast', (data, fn) ->
-		console.log data
-		io.sockets.emit 'blast', { msg:data.msg }
-		fn()
+#io.sockets.on 'connection', (socket) ->
+#	io.sockets.emit 'blast', { msg:"someone connected" }
+#	socket.on 'blast', (data, fn) ->
+#		console.log data
+#		io.sockets.emit 'blast', { msg:data.msg }
+#		fn()
 
 # Register Routes
 # =============================================================================
-router = express.Router()
-router.get '/socket', (req, res) ->
-	res.render 'index', {}
-
-router.get '/', (req, res) ->
-	res.sendFile __dirname + '/index.html'
-router.get '/app.js', (req, res) ->
-	res.sendFile __dirname + '/scripts/app.js'
-router.get '/main.css', (req, res) ->
-	res.sendFile __dirname + '/content/styles/main.css'
+#router = express.Router()
+#router.get '/socket', (req, res) ->
+#	res.render 'index', {}
+#console.log(__dirname);
+#router.get '/', (req, res) ->
+#	res.sendFile __dirname + '/index.html'
+#app.use '/app.js', express.static(__dirname + '/public/scripts/app.js')
+#app.use '/main.css', express.static __dirname + '/public/styles/main.css'
 
 
-apiRouter = express.Router()
-apiRouter.get '/', (req, res) ->
-	res.json { message: 'hooray! welcome to our api!' }
+#apiRouter = express.Router()
+#apiRouter.get '/', (req, res) ->
+#	res.json { message: 'hooray! welcome to our api!' }
 
-BearsController = require './controllers/bears-controller'
-app.use '/api', new BearsController()
-	.use '/api', apiRouter
-	.use '/', router
+#BearsController = require './controllers/bears-controller'
+#app.use '/api', new BearsController()
+#	.use '/api', apiRouter
+#	.use '/', router
 
 # START THE SERVER
 # =============================================================================
-server.listen port
-console.log 'Magic happens on port ' + port
+#server.listen port
+#console.log 'Magic happens on port ' + port
