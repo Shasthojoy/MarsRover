@@ -1,7 +1,7 @@
 class Boot
 
   preload: ->
-    @load.image 'preloader', 'assets/images/preloader.gif'
+    @load.image 'preloader', 'content/images/preloader.gif'
 
   create: ->
     @game.input.maxPointers = 1
