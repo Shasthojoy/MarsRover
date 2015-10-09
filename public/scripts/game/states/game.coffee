@@ -1,9 +1,10 @@
 class Game
   io = require 'socket.io'
   @player = null
-  @slaveplayer = null
+  @users = {}
   @cursors = null
   @socket = null
+  @username = Math.floor Math.random()*100000
 
   create: ->
     @game.world.setBounds 0, 0, 1041, 642
@@ -11,18 +12,30 @@ class Game
     y = @game.height / 2
     @add.sprite 0, 0, 'bg'
     @player = @add.sprite x, y, 'player'
-    @slaveplayer = @add.sprite x, y, 'player'
     @game.camera.follow @player
     #@player.anchor.setTo 0.5, 0.5
     @cursors = @game.input.keyboard.createCursorKeys()
     @input.onDown.add @onInputDown, this
     @socket = io.connect('http://127.0.0.1:3000/')
-    @socket.on "blast", (data) =>
-      coords = data.msg.split("|")
-      if coords.length > 1
-        @slaveplayer.x = coords[0];
-        @slaveplayer.y = coords[1];
-        @game.world.wrap(@slaveplayer, 0, true);
+    @socket.emit "add user", {@username}, (data) ->
+      console.log "logged in"
+    @socket.on "user joined", (data) =>
+      console.log "User joined #{ data.username }"
+      newPlayer = @add.sprite x, y, 'player'
+      @users[data.username] = newPlayer
+      @game.world.wrap(@users[data.username], 0, true);
+
+    @socket.on "user left", (data) =>
+      console.log "User left #{ data.username }"
+      #@remove @users[data.username]
+      @users[data.username] = null
+
+    @socket.on "move", (data) =>
+      user = @users[data.username]
+      if user?
+        user.x = data.x;
+        user.y = data.y;
+        @game.world.wrap(user, 0, true);
 
   update: ->
     oldx = @player.x;
@@ -38,7 +51,7 @@ class Game
       @player.y += 4;
     @game.world.wrap(@player, 0, true);
     if oldx != @player.x || oldy != @player.y
-      @socket.emit "blast", {msg: @player.x + "|" + @player.y}, (data) ->
+      @socket.emit "move", {username: @username, x: @player.x, y: @player.y}, (data) ->
         console.log "blast sent"
 
   onInputDown: ->
